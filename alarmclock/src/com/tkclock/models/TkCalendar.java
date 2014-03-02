@@ -84,6 +84,11 @@ public class TkCalendar {
 		selectionArgs = new String[]{account_type};
 		
 		calCur = mCr.query(mCalendarUri, CAL_PROJECTION, selection, selectionArgs, null);
+		
+		if(calCur == null) {
+			return accounts;
+		}
+		
 		while(calCur.moveToNext()) {
 			account = calCur.getString(ACC_NAME_INDEX);
 			accounts.add(account);
@@ -103,6 +108,11 @@ public class TkCalendar {
 		String time_selection = "(" + _DTSTART + " >= ?) AND " +
 								"(" + _DTEND + " <= ?)";
 		String account_selection = "";
+		
+		if(acc_lists.size() == 0) {
+			return eventDesc;
+		}
+		
 		for(int i = 0; i < acc_lists.size(); i++) {
 			account_selection += (i != 0 ? " OR " : "") + "(" + _ACCOUNT_NAME + " = ?)";
 		}

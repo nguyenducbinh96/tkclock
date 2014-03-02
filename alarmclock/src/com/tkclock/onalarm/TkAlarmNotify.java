@@ -161,7 +161,7 @@ public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		mTts.stop();
+		m_speaker.stop();
 	}
 
 	@Override

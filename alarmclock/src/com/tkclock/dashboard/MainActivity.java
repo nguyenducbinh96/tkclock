@@ -1,5 +1,7 @@
 package com.tkclock.dashboard;
 
+import static com.tkclock.dashboard.TkApplication.KEY_PREFERENCE_CAL_ACCS;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,11 +25,13 @@ import com.tkclock.adapters.TkPageFragAdapter;
 import com.tkclock.alarm.TkAlarmFragment;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -85,10 +89,12 @@ public class MainActivity extends FragmentActivity
         instance.set(Calendar.MINUTE, 59);
         Date end = instance.getTime();
         
-        List<String> acc_lists = new ArrayList<String>();
-        acc_lists.add("binhnd0906@gmail.com");
-        acc_lists.add("nguyenducbinh0906@gmail.com");
-        calendar.readEvents(start, end, acc_lists);
+        SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String selected_accs = preferences.getString(KEY_PREFERENCE_CAL_ACCS, "");
+        List<String> acc_lists = StringUtils.SplitUsingToken(selected_accs, ";");
+        if(calendar != null) {
+        	calendar.readEvents(start, end, acc_lists);
+        }
         
 //        createNotification();
 	}

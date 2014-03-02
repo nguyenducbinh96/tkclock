@@ -52,8 +52,8 @@ public class TkTextToSpeech {
 	}
 	
 	public static void shutdown() {
-		Log.d(TAG, "Shutting down");
 		synchronized (mEngine.lockSpeak) {
+			Log.d(TAG, "Shutting down");
 			mEngine.m_complete_speak = COMPLETE_RELEASED;
 		}
 		mEngine.mTTS.shutdown();
@@ -62,13 +62,16 @@ public class TkTextToSpeech {
 	
 	public int stop() {
 		synchronized (lockSpeak) {
+			Log.d(TAG, "Stopping");
 			m_complete_speak = COMPLETE_STOPPED;
 		}
-		return mTTS.stop();
+		mTTS.stop();
+		return 0;
 	}
 	
 	public int skip() {
 		synchronized (lockSpeak) {
+			Log.d(TAG, "Skipping");
 			m_complete_speak = COMPLETE_SKIPPED;
 		}
 		
@@ -133,7 +136,6 @@ public class TkTextToSpeech {
 		boolean status = false;
 		// Reset
 		m_complete_speak = COMPLETE_NORMAL;
-		int stop_reason = m_complete_speak;
 		
 		do { // Loop until nothing to speak
 			List<String> sub_sentences = StringUtils.SplitUsingToken(sentence, SENTENCE_DELIMITER);
@@ -146,8 +148,7 @@ public class TkTextToSpeech {
 				// Check request stop before start next sub-sentence
 				synchronized (lockSpeak) {
 					if(m_complete_speak != COMPLETE_NORMAL) {
-						stop_reason = m_complete_speak;
-						Log.d("TTS", "Stopped: " + stop_reason);
+						Log.d("TTS", "Stopped: " + m_complete_speak);
 						status = false;
 						break;
 					}
@@ -160,7 +161,8 @@ public class TkTextToSpeech {
 		} while (status == true);
 		
 		waitSpeak();
-		return stop_reason;
+
+		return m_complete_speak;
 	}
 	
 	private void waitSpeak() {

@@ -94,7 +94,7 @@ public class TkFacebook {
 			Session.setActiveSession(mSession);
 		}
 		if(mSession.isOpened() == false)
-			mSession.openForPublish(createOpenReq());
+			mSession.openForPublish(createReadReq());
 	}
 	
 	public void logout() {
@@ -135,14 +135,27 @@ public class TkFacebook {
         Request.executeBatchAsync(request); 
 	}
 	
-	private Session.OpenRequest createOpenReq() {
+	private Session.OpenRequest createReadReq() {
 		/* 
 		 * Create a publish permission request
 		 */
 		Session.OpenRequest publishRequest = new Session.OpenRequest(mContext);
 		publishRequest.setCallback(openReqCallback);
-		List<String> permission = Arrays.asList("status_update", "manage_notifications");
+		List<String> permission = Arrays.asList("basic_info");
 		publishRequest.setPermissions(permission);
+
+		return publishRequest;
+	}
+	
+	private Session.NewPermissionsRequest createPublishReq() {
+		/* 
+		 * Create a publish permission request
+		 */
+		Session.NewPermissionsRequest publishRequest = 
+				new Session.NewPermissionsRequest(mContext, Arrays.asList("manage_notifications"));
+		publishRequest.setCallback(openReqCallback);
+		//List<String> permission = Arrays.asList("manage_notifications");
+		//publishRequest.setPermissions(permission);
 
 		return publishRequest;
 	}
@@ -155,6 +168,7 @@ public class TkFacebook {
 	    public void call(Session session, SessionState state, Exception exception) {
 	    	if (state.isOpened()) {
 		        Log.i(TAG, "Logged in...");
+		        session.requestNewPublishPermissions(createPublishReq());
 		    } else if (state.isClosed()) {
 		        Log.i(TAG, "Logged out...");
 		    }

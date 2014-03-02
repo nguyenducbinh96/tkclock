@@ -96,7 +96,7 @@ public class TkNotificationSpeaker {
 			// Lock to speak only
 			synchronized (m_lock_setup) {
 				Log.d("Speak", 	"current index: " + m_current_index + 
-								" repeat: " + m_repeat_flag + 
+								" start_index: " + start_index + 
 								" direction: " + m_speak_direction);
 				sentence = notification.get(m_current_index);
 				Log.d("NotificationSpeaker", sentence);
@@ -180,6 +180,10 @@ public class TkNotificationSpeaker {
 			public void run() {
 				mTTs.stop();
 				setup(-1, -1, -1, -1);
+				Log.d("Stopped", "" + m_fb_notification_index + " "
+									+ m_mail_notification_index + " "
+									+ m_news_notification_index + " "
+									+ m_weather_notification_index);
 			}
 		});
 		
@@ -243,6 +247,7 @@ public class TkNotificationSpeaker {
 	 */
 	public void setup(int fb_index, int mail_index, int news_index, int weather_index) {
 		synchronized (m_lock_setup) {
+			Log.d(TAG, "setup");
 			if(fb_index != SKIP_VALUE.intValue()) {
 				m_fb_notification_index = Integer.valueOf(fb_index);
 			}
