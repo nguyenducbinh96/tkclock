@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tkclock.dashboard"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_CALENDAR"/>
+	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    
+    <application
+        android:name="com.tkclock.dashboard.TkApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity 
+			android:name="com.tkclock.onalarm.TkAlarmNotify"
+        	android:label="@string/app_name">
+        </activity>
+        <activity 
+            android:name="com.facebook.LoginActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity 
+            android:name="com.tkclock.settings.GeneralSetting"
+            android:label="@string/app_name">
+        </activity>
+        <activity 
+            android:name="com.tkclock.settings.TkSettings"
+            android:label="@string/app_name">
+        </activity>
+        
+        <receiver android:name="com.tkclock.onalarm.OnAlarmReceiver" />
+		<service android:name="com.tkclock.onalarm.ReminderService" />
+		<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
+    </application>
+	
+</manifest>

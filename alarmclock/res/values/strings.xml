@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TkClock</string>
+    <string name="action_settings">Settings</string>
+    <string name="alarm_repeate">REPEAT</string>
+    <string name="tab_alarm_title">Alarm</string>
+    <string name="tab_worldclock_title">World Clock</string>
+    <string name="tab_stopwatch_title">Stop Watch</string>
+    <string name="tab_timer_title">Timer</string>
+    <string name="app_id">251528931688666</string>
+    
+    <string-array name="week_days">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+    
+    <string-array name="setting_items">
+        <item>Alarm</item>
+        <item>Facebook</item>
+        <item>Gmail</item>
+        <item>Calendar</item>
+        <item>Weather</item>
+        <item>Stock</item>
+    </string-array>
+    
+    <string name="alarm_setting_header">Alarm</string>
+    <string name="facebook_setting_header">Facebook</string>
+    <string name="email_setting_header">Email</string>
+    <string name="calendar_setting_header">Calendar</string>
+    
+    <string name="silent_opt">Silence After</string>
+    <string name="snooze_opt">Snooze Time</string>
+    <string name="ringtones_opt">Ringtones Time</string>
+    
+    <string name="fb_state_opt">Using Facebook</string>
+    <string name="fb_log_status">Login Status</string>
+    <string name="calendar_stt_opt">Read Calendar</string>
+    
+    <string name="toggle_btn_enable">Enable</string>
+    <string name="toggle_btn_disable">Disable</string>
+    <string name="toggle_btn_yes">Yes</string>
+    <string name="toggle_btn_no">No</string>
+    
+    <string name="fb_log_in">Log in</string>
+    <string name="fb_log_out">Log out</string>
+    
+    <string name="calendar_acc_opt">Select calendar accounts</string>
+    <string name="add_more_acc">More account</string>
+    
+    
+    
+</resources>

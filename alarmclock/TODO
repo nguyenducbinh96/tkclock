@@ -1,0 +1,37 @@
+----------12/01/2014 meeting---------
+1. Create the main tabs including alarm-clock, world-clock, stop-watch and time-counter.
+2. Implement world-clock (ListView, BaseAdapter), stop-watch and time-counter (AsyncTask, Task reminder) --Dat
+3. Implement the main page and alarm-clock (similar to the one in nexus) --Binh
+------------
+TODO decide: How to recognize voice commands?
+
+1. Google now: easy but not flexible! 
+	references: might be interesting links: 
+		http://chrome.blogspot.co.uk/2013/01/hello-browser.html
+		http://captico.com/introducing-speech-2-text-api-by-google/2011/03
+		https://play.google.com/store/apps/details?id=com.brandall.nutter&hl=en
+		http://stackoverflow.com/questions/17616994/offline-speech-recognition-in-android-jellybean
+		http://developer.android.com/reference/android/speech/SpeechRecognizer.html
+	supported devices: "Also, Google have restricted certain Jelly Bean devices from using the offline recognition 
+		due to hardware constraints. Which devices this applies to is not documented, in fact, nothing is documented, 
+		so configuring the capabilities for the user has proved to be a matter of trial and error (for them). 
+		It works for some straight away – For those that it doesn't, this is the ‘guide’ I supply them with."
+		
+2. New implementation: more difficult, time-consuming but brings a lot of benefits. E.g.:
+	Focus on a small area: pre-defined commands.
+	Fast to add new languages, especially Vietnamese.
+	Less risky in terms of privacy.
+
+----------09/02/2014 idea---------
+- Allow users to create their own ringtones (voice of their gf/bf :D).
+- Allow users to add additional note which would be talked when alarm on
+- Consider: 
+  + Stock/Gold price
+  + Feed
+  
+----------22/02/2014 idea---------
+Command:
+- Weather
+- Voice control
+   + Stop
+   + 

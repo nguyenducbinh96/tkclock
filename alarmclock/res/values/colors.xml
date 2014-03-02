@@ -1,0 +1,13 @@
+
+<resources>
+    <color name="bg_content">#2f2f2f</color>
+    <color name="border_top_header">#555555</color>
+    <color name="text_header">#ffffff</color>
+    <color name="bg_content_black">#000000</color>
+    <color name="common_bt_color">#ffffff</color>
+    <color name="news_detail_bg">#ffffff</color>
+    <color name="text_shadow">#101010</color>
+    <color name="text_content">#ffffff</color>
+    <color name="seperator">#bbbbbb</color>
+    <color name="bg_title_gray">#555555</color>
+</resources>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/alarm_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Time"
+        android:textSize="30sp"
+        android:textColor="@color/text_header"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <CheckBox
+        android:id="@+id/alarm_enable"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    
+    <CheckBox 
+        android:id="@+id/alarm_repeat"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/alarm_time"/>
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alarm_repeate"
+        android:layout_toRightOf="@id/alarm_repeat"
+        android:layout_below="@id/alarm_time"
+        android:layout_alignBaseline="@id/alarm_repeat"
+        android:textColor="@color/text_header"/>
+    
+    <LinearLayout 
+        android:id="@+id/repeat_opt"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarm_repeat"
+	    android:layout_alignParentLeft="true" >
+    
+	    <LinearLayout 
+	        android:id="@+id/opt_sun"
+	        android:gravity="center_horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Sun"
+		        android:textColor="@color/text_header"/>
+	        <ToggleButton 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/opt_mon"
+	        android:gravity="center_horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:padding="0dp"
+	        android:orientation="vertical">
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:gravity="center_horizontal"
+		        android:text="Mon"
+		        android:textColor="@color/text_header"/>
+	        <ToggleButton 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/opt_tue"
+	        android:gravity="center_horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Tue"
+		        android:textColor="@color/text_header"/>
+	        <ToggleButton 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/opt_wed"
+	        android:gravity="center_horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Wed"
+		        android:textColor="@color/text_header"/>
+	        <ToggleButton 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/opt_thu"
+	        android:gravity="center_horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Thu"
+		        android:textColor="@color/text_header"/>
+	        <ToggleButton 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/opt_fri"
+	        android:gravity="center_horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Fri"
+		        android:textColor="@color/text_header"/>
+	        <ToggleButton 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/opt_sat"
+	        android:gravity="center_horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Sat"
+		        android:textColor="@color/text_header"/>
+	        <ToggleButton 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	    </LinearLayout>
+    
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:id="@+id/opt_ringtone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repeat_opt"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        
+        <ImageView 
+	        android:id="@+id/alarm_ringtone"
+	        android:adjustViewBounds="true"
+	        android:src="@drawable/ic_launcher"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"/>
+        
+        <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Ringtone"
+	        android:textColor="@color/text_header"/>
+    </LinearLayout>
+
+    <ImageView 
+        android:id="@+id/alarm_delete"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_action_discard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarm_enable"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>
