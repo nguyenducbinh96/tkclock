@@ -16,7 +16,9 @@ import com.tkclock.utils.DateTimeUtils;
 import com.tkclock.voice.notify_manager.TkNotificationSpeaker;
 import com.tkclock.voice.notify_manager.TkVoiceCmd;
 import com.tkclock.voice.notify_manager.TkVoiceControlMng;
+import com.tkclock.voice.user_interaction.TkVoiceRecognizerCtrl;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -39,7 +41,8 @@ import static com.tkclock.dashboard.TkApplication.MSG_TYPE_GMAIL_NOTIFICATION;
 import static com.tkclock.dashboard.TkApplication.MSG_TYPE_TTS_NOTIFICATION;
 import static com.tkclock.adapters.TkDbAlarmMng.KEY_ROWID;
 
-public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener {
+public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener,
+	TkVoiceRecognizerCtrl.OnCommandProcessing {
 	
 	public static String COMMAND_NAME_STOP = "stop";
 	public static String COMMAND_NAME_NEXT = "next";
@@ -64,6 +67,7 @@ public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener
 	Button m_btn_next, m_btn_back, m_btn_repeat, m_btn_stop;
 	TkVoiceCmd m_command_mng;
 	TkNotificationSpeaker m_speaker;
+	TkVoiceRecognizerCtrl m_voice_recognizer;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +152,9 @@ public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener
 		// Enable voice command controller when all notifications ready
 		m_speaker = new TkNotificationSpeaker(TkAlarmNotify.this, mTts, m_fb_notifcations, null, null, null);
 		m_command_mng = new TkVoiceCmd(m_speaker);
+		m_voice_recognizer = new TkVoiceRecognizerCtrl(this, mTts);
 		m_speaker.start();
+		m_voice_recognizer.start();
 	}
 	
 	@Override
@@ -162,6 +168,7 @@ public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener
 		// TODO Auto-generated method stub
 		super.onPause();
 		m_speaker.stop();
+		m_voice_recognizer.stop();
 	}
 
 	@Override
@@ -183,6 +190,32 @@ public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener
 			break;
 		}
 		
+	}
+	
+	@SuppressLint("HandlerLeak")
+	Handler voice_recog_handlerHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			String command = (String)msg.obj;
+			if(!command.equals("stop")) {
+				m_voice_recognizer.start();
+			}
+		}
+		
+	};
+
+	@Override
+	public String OnCommandResult(String command) {
+		Message msg = Message.obtain();
+		msg.obj = command;
+		voice_recog_handlerHandler.sendMessage(msg);
+		if(command.length() != 0) {
+			Log.d(TAG, "control command: " + command);
+			return m_command_mng.processCommand(command);
+		} else {
+			return "";
+		}
 	}
 	
 }

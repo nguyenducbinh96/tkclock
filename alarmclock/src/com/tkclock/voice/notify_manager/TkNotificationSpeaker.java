@@ -15,6 +15,7 @@ import com.tkclock.utils.StringUtils;
 
 import static com.tkclock.models.TkTextToSpeech.COMPLETE_NORMAL;
 import static com.tkclock.models.TkTextToSpeech.COMPLETE_SKIPPED;
+import static com.tkclock.models.TkTextToSpeech.COMPLETE_TERMINATED;
 
 import static com.tkclock.dashboard.TkApplication.KEY_PREFERENCE_NOTIFY_ORDER;
 import static com.tkclock.dashboard.TkApplication.NOTIFICATION_TYPE_FB;
@@ -22,10 +23,16 @@ import static com.tkclock.dashboard.TkApplication.NOTIFICATION_TYPE_MAIL;
 import static com.tkclock.dashboard.TkApplication.NOTIFICATION_TYPE_NEWS;
 import static com.tkclock.dashboard.TkApplication.NOTIFICATION_TYPE_WEATHER;
 
+import static com.tkclock.models.TkTextToSpeech.TASK_PRIORITY_LOW;
+
 public class TkNotificationSpeaker {
 	private static String TAG = "NotificationSpeaker";
 	private Object m_lock_setup = new Object(); // for synchronize purpose
 	private static Integer SKIP_VALUE = Integer.valueOf(10000); // skip this value when setup
+	private static int STATE_SPEAKING = 0;
+	private static int STATE_STOPPED = 1;
+	private static int STATE_PAUSED = 2;
+
 	public static int DIRECTION_FW = 1;
 	public static int DIRECTION_BW = -1;
 	
@@ -46,6 +53,7 @@ public class TkNotificationSpeaker {
 	Integer m_current_index;
 	boolean m_repeat_flag;
 	int m_speak_direction;
+	private int m_state;
 	
 	SparseArray<String> m_notification_order;
 	
@@ -58,20 +66,13 @@ public class TkNotificationSpeaker {
 		mContext = context;
 		mTTs = tts;
 		
-		m_speak_direction = DIRECTION_FW;
-		m_repeat_flag = false;
-		
 		// Init notification info
 		m_fb_notification = fb_notification;
 		m_mail_notification = mail_notification;
 		m_news_notification = news_notification;
 		m_weather_notification = weather_notification;
 		
-		m_fb_notification_index = Integer.valueOf(0);
-		m_mail_notification_index = Integer.valueOf(0);
-		m_news_notification_index = Integer.valueOf(0);
-		m_weather_notification_index = Integer.valueOf(0);
-		
+		init_control_values();
 		m_notification_order = new SparseArray<String>();
 		
 		// Read share preference to get notification order
@@ -84,6 +85,17 @@ public class TkNotificationSpeaker {
 		}	
 	}
 	
+	private void init_control_values() {
+		m_speak_direction = DIRECTION_FW;
+		m_repeat_flag = false;
+		m_state = STATE_STOPPED;
+		
+		m_fb_notification_index = Integer.valueOf(0);
+		m_mail_notification_index = Integer.valueOf(0);
+		m_news_notification_index = Integer.valueOf(0);
+		m_weather_notification_index = Integer.valueOf(0);
+	}
+ 	
 	private int speakInfo(List<String> notification, Integer start_index) {
 		if(start_index < 0 || start_index >= notification.size())
 			return COMPLETE_NORMAL;
@@ -103,7 +115,7 @@ public class TkNotificationSpeaker {
 				speakResult = mTTs.speak(sentence);
 				if(speakResult != COMPLETE_SKIPPED && 
 						speakResult != COMPLETE_NORMAL) {
-					Log.d(TAG, "Terminated");
+					Log.d(TAG, "Terminated: " + speakResult);
 					return speakResult;
 				} else {
 					Log.d(TAG, speakResult == COMPLETE_SKIPPED ? "Skipped" : "Completed");
@@ -127,11 +139,14 @@ public class TkNotificationSpeaker {
 	}
 	
 	public void start() {
+		mTTs.acquire(TASK_PRIORITY_LOW);
+		init_control_values();
 		speak();
 	}
 	
 	public void restart() {
-		
+		mTTs.acquire(TASK_PRIORITY_LOW);
+		speak();
 	}
 	
 	private void speak() {
@@ -164,12 +179,13 @@ public class TkNotificationSpeaker {
 					
 					if(completed_result != COMPLETE_SKIPPED || 
 							completed_result != COMPLETE_NORMAL) {
+						m_state = completed_result == COMPLETE_TERMINATED ? STATE_PAUSED : STATE_STOPPED;
 						return;
 					}
 				}
 			}
 		});
-		
+		m_state = STATE_SPEAKING;
 		speakThread.start();
 	}
 	
@@ -205,6 +221,9 @@ public class TkNotificationSpeaker {
 		});
 		
 		nextThread.start();
+		if(m_state == STATE_PAUSED) {
+			restart();
+		}
 	}
 	
 	public void back() {
@@ -222,6 +241,9 @@ public class TkNotificationSpeaker {
 		});
 		
 		backThread.start();
+		if(m_state == STATE_PAUSED) {
+			restart();
+		}
 	}
 	
 	public void repeat() {
@@ -239,6 +261,9 @@ public class TkNotificationSpeaker {
 		});
 		
 		repeatThread.start();
+		if(m_state == STATE_PAUSED) {
+			restart();
+		}
 	}
 	
 	/*

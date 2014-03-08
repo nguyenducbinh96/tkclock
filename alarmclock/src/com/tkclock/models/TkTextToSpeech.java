@@ -14,7 +14,7 @@ import static com.tkclock.dashboard.TkApplication.MSG_TYPE_TTS_NOTIFICATION;
 import static com.tkclock.dashboard.TkApplication.MSG_RESULT_OK;
 import static com.tkclock.dashboard.TkApplication.MSG_RESULT_NG;
 
-public class TkTextToSpeech {
+public class TkTextToSpeech {	
 	public static int TASK_PRIORITY_HIGH = 1;
 	public static int TASK_PRIORITY_NORMAL = 2;
 	public static int TASK_PRIORITY_LOW = 3;
@@ -136,6 +136,11 @@ public class TkTextToSpeech {
 		boolean status = false;
 		// Reset
 		m_complete_speak = COMPLETE_NORMAL;
+		
+		if(m_task_priority == 0) {
+			Log.d(TAG, "Must call acquire to set priority first");
+			return COMPLETE_STOPPED;
+		}
 		
 		do { // Loop until nothing to speak
 			List<String> sub_sentences = StringUtils.SplitUsingToken(sentence, SENTENCE_DELIMITER);
