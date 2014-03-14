@@ -14,7 +14,6 @@ import com.tkclock.models.TkFacebook;
 import com.tkclock.models.TkFacebook.OnSessionStateChange;
 import com.tkclock.onalarm.OnAlarmReceiver;
 import com.tkclock.onalarm.TkAlarmNotify;
-import com.tkclock.settings.GeneralSetting;
 import com.tkclock.settings.TkSettings;
 import com.tkclock.stopwatch.TkStopWatchFragment;
 import com.tkclock.timer.TkTimerFragment;

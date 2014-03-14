@@ -41,10 +41,6 @@
             android:label="@string/app_name">
         </activity>
         <activity 
-            android:name="com.tkclock.settings.GeneralSetting"
-            android:label="@string/app_name">
-        </activity>
-        <activity 
             android:name="com.tkclock.settings.TkSettings"
             android:label="@string/app_name">
         </activity>
