@@ -122,11 +122,6 @@ public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener
         m_btn_back.setOnClickListener(this);
         m_btn_repeat.setOnClickListener(this);
         m_btn_stop.setOnClickListener(this);
-        
-		m_speaker = new TkNotificationSpeaker(TkAlarmNotify.this, mTts, m_fb_notifcations, null, null, null);
-		m_command_mng = new TkVoiceCmd(m_speaker);
-		m_voice_recognizer = new TkVoiceRecognizerCtrl(this, mTts);
-
 	}
 	
 	private Handler mResultHandler = new Handler() {
@@ -153,7 +148,10 @@ public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener
 		Log.d(TAG, "Start speaking");
 		
 		// Enable voice command controller when all notifications ready
-		
+		m_speaker = new TkNotificationSpeaker(TkAlarmNotify.this, mTts, m_fb_notifcations, null, null, null);
+		m_command_mng = new TkVoiceCmd(m_speaker);
+		m_voice_recognizer = new TkVoiceRecognizerCtrl(this, mTts);
+
 		m_speaker.start();
 		m_voice_recognizer.start();
 	}
@@ -168,8 +166,10 @@ public class TkAlarmNotify extends TkFragmentActivity implements OnClickListener
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		m_speaker.stop();
-		m_voice_recognizer.stop();
+		if(m_speaker != null)
+			m_speaker.stop();
+		if(m_voice_recognizer != null)
+			m_voice_recognizer.stop();
 	}
 
 	@Override

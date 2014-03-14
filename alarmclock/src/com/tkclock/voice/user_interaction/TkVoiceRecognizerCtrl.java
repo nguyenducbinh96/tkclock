@@ -81,5 +81,6 @@ public class TkVoiceRecognizerCtrl implements TkVoiceListener.OnListenerResult {
 	}
 	public void stop() {
 		m_speech_recog.stopListening();
+		m_speech_recog.destroy();
 	}
 }

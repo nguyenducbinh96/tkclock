@@ -67,10 +67,10 @@ public class MainActivity extends FragmentActivity
 		mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         
 		// Initialise the TabHost
-        initialiseTabHost(savedInstanceState);
-        if (savedInstanceState != null) {
-            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
-        }
+//        initialiseTabHost(savedInstanceState);
+//        if (savedInstanceState != null) {
+//            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
+//        }
         // Intialise ViewPager
         intialiseViewPager();
         
@@ -100,7 +100,7 @@ public class MainActivity extends FragmentActivity
 	}
 	
 	protected void onSaveInstanceState(Bundle outState) {
-        outState.putString("tab", mTabHost.getCurrentTabTag()); //save the tab selected
+//        outState.putString("tab", mTabHost.getCurrentTabTag()); //save the tab selected
         super.onSaveInstanceState(outState);
         mFbService.onSaveInstanceState(outState);
     }
@@ -146,9 +146,9 @@ public class MainActivity extends FragmentActivity
 	private void intialiseViewPager() {
 		List<Fragment> fragments = new ArrayList<Fragment>();
         fragments.add(Fragment.instantiate(this, TkAlarmFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, TkWorldClockFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, TkStopWatchFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, TkTimerFragment.class.getName()));
+//        fragments.add(Fragment.instantiate(this, TkWorldClockFragment.class.getName()));
+//        fragments.add(Fragment.instantiate(this, TkStopWatchFragment.class.getName()));
+//        fragments.add(Fragment.instantiate(this, TkTimerFragment.class.getName()));
         
         mPagerAdapter  = new TkPageFragAdapter(getSupportFragmentManager(), fragments);
         mViewPager = (ViewPager) findViewById(R.id.pager);
