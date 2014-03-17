@@ -24,7 +24,7 @@ public class TkVoiceRecognizerCtrl implements TkVoiceListener.OnListenerResult {
 	private OnCommandProcessing m_controller;
 	
 	public interface OnCommandProcessing {
-		public String OnCommandResult(String command);
+		public String OnProcess(String command);
 	}
 	
 	private static final String supported_commands[] = {"pause", "stop", "dismiss", "turn off", "off", 
@@ -47,12 +47,12 @@ public class TkVoiceRecognizerCtrl implements TkVoiceListener.OnListenerResult {
 			return;
 		} else if(command.length() == 0) {
 			Log.d(TAG, "Restart service");
-			m_controller.OnCommandResult(command);
+			m_controller.OnProcess(command);
 			return;
 		}
 		
 		Toast.makeText((Context)m_controller, command, Toast.LENGTH_LONG).show();
-		String result = m_controller.OnCommandResult(command);
+		String result = m_controller.OnProcess(command);
 		
 		if (result.equals(COMMAND_OK_STR)) {
 			Log.d(TAG, "Command is supported: " + command);

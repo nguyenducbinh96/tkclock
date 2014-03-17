@@ -17,7 +17,7 @@ public class DateTimeUtils {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.US);
 		return sdf.parse(strDate);
 	}
-	public static String date2Time(Date date) {
+	public static String time2Str(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat(TIME_FORMAT, Locale.US);
     	return sdf.format(date);
 	}

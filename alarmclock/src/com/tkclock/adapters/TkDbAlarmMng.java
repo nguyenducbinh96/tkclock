@@ -76,7 +76,7 @@ public class TkDbAlarmMng {
 			m_repeat = false;
 			m_enable = true;
 			m_repeat_days = new ArrayList<String>();
-			m_ringtone = Settings.System.DEFAULT_RINGTONE_URI.getPath();
+			m_ringtone = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
 			m_alarmtime = Calendar.getInstance().getTime();
 		}
 	}
@@ -131,6 +131,7 @@ public class TkDbAlarmMng {
 		content.put(KEY_RINGTONE_URI, alarm.m_ringtone);
 		content.put(KEY_DATE_TIME, DateTimeUtils.date2Str(alarm.m_alarmtime));
 		long ret = mDb.insert(TABLE_NAME, null, content);
+		alarm.m_id = ret;
 		
 		return ret;
 	}
@@ -150,7 +151,7 @@ public class TkDbAlarmMng {
 			mCursor.moveToFirst();
 		return mCursor;
 	}
-	public boolean updateAlarm(long id, TkDbAlarm alarm){
+	public boolean updateAlarm(TkDbAlarm alarm){
 		ContentValues content = new ContentValues();
 		content.put(KEY_ENABLE, alarm.m_enable ? 1 : 0);
 		content.put(KEY_REPEAT, alarm.m_repeat ? 1 : 0);
@@ -162,6 +163,6 @@ public class TkDbAlarmMng {
 		
 		content.put(KEY_RINGTONE_URI, alarm.m_ringtone);
 		content.put(KEY_DATE_TIME, DateTimeUtils.date2Str(alarm.m_alarmtime));
-		return mDb.update(TABLE_NAME, content, KEY_ROWID + "=" + id, null) > 0;
+		return mDb.update(TABLE_NAME, content, KEY_ROWID + "=" + alarm.m_id, null) > 0;
 	}
 }

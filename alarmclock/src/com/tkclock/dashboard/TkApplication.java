@@ -32,6 +32,7 @@ public class TkApplication extends Application {
 	
 	public static String KEY_PREFERENCE_SILENT_TIME = "silent_time";
 	public static String KEY_PREFERENCE_SNOOZE_TIME = "snooze_time";
+	public static String KEY_PREFERENCE_RINGTONE_TIME = "ringtone_time";
 	
 	public static String KEY_PREFERENCE_CAL_ACCS = "selected_accs";
 	
@@ -42,6 +43,7 @@ public class TkApplication extends Application {
 	/* Declare all default setting value here */
 	private int default_silent_time = 10; /* 10m */
 	private int default_snooze_time = 10; /* 10m */
+	private int default_ringtone_time = 1; /* 10m */
 	
 	@Override
 	public void onCreate() {
@@ -61,6 +63,10 @@ public class TkApplication extends Application {
 		
 		if(!prefs.contains(KEY_PREFERENCE_SNOOZE_TIME)) {
 			editor.putInt(KEY_PREFERENCE_SNOOZE_TIME, default_snooze_time);
+		}
+		
+		if(!prefs.contains(KEY_PREFERENCE_RINGTONE_TIME)) {
+			editor.putInt(KEY_PREFERENCE_RINGTONE_TIME, default_ringtone_time);
 		}
 		
 		// Init notification order
