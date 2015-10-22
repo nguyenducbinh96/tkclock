@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:minSdkVersion="15"
+        android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -26,11 +26,11 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
+            <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter> -->
         </activity>
         <activity 
 			android:name="com.tkclock.onalarm.TkAlarmNotify"
@@ -43,6 +43,16 @@
         <activity 
             android:name="com.tkclock.settings.TkSettings"
             android:label="@string/app_name">
+        </activity>
+        
+        <activity
+            android:name="com.tkclock.voice.user_interaction.VoiceControlActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         
         <receiver android:name="com.tkclock.onalarm.OnAlarmReceiver" />
